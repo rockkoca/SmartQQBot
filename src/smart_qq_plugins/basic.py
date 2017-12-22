@@ -86,7 +86,7 @@ recorder = Recorder()
 def store_meigu_group_message(msg, bot):
     coll = Database.client['qq']['group_465723845']
     d = msg_2_dict(msg)
-    print(d['src_group_id'] == '465723845')
+    print(d['src_group_id'], '465723845')
     if str(d['src_group_id']).strip() == '465723845':
         print(coll.insert_one(d))
 

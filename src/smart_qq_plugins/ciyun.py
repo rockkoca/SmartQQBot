@@ -3,14 +3,15 @@
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 import jieba
-from .database import Database
-
+from smart_qq_plugins import Database
+import matplotlib.font_manager
+fonts = matplotlib.font_manager.findSystemFonts(fontpaths=None, fontext='ttf')
 if __name__ == '__main__':
     coll = Database.client['qq']['group_465723845']
     # 结巴分词
     wordlist = []
     for msg in coll.find({}):
-        wordlist.extend(jieba.cut(msg['content'], cut_all=True))
+        wordlist.extend(jieba.cut(msg['content']))
     wl = " ".join(wordlist)
     # print(wl)#输出分词之后的txt
 
@@ -18,13 +19,13 @@ if __name__ == '__main__':
     # fenciTxt  = open("fenciHou.txt","w+")
     # fenciTxt.writelines(wl)
     # fenciTxt.close()
-
+    # print(wl)
     # 设置词云
     wc = WordCloud(background_color="black",  # 设置背景颜色
                    # mask = "图片",  #设置背景图片
                    max_words=2000,  # 设置最大显示的字数
                    # stopwords = "", #设置停用词
-                   font_path="fangsong_GB2312.ttf",
+                   font_path='/Users/k/Dropbox/py/stock_chat/qqBot/SmartQQBot/src/fonts/fangsong.ttf',
                    # 设置中文字体，使得词云可以显示（词云默认字体是“DroidSansMono.ttf字体库”，不支持中文）
                    max_font_size=50,  # 设置字体最大值
                    random_state=30,  # 设置有多少种随机生成状态，即有多少种配色方案

@@ -47,6 +47,7 @@ def msg_2_dict(msg):
         d['src_sender_id'] = '375085690'
 
     d['time'] = datetime.datetime.fromtimestamp(d.get('time', datetime.datetime.now().timestamp()))
+    print(d)
     return d
 
 

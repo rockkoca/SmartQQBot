@@ -26,8 +26,16 @@ REPLY_SUFFIX = (
 
 
 def msg_2_dict(msg):
-    remove = {'bot', 'font', 'meta', 'to_uin'}
-    d = {key: getattr(msg, key) for key in dir(msg) if not key.startswith('_') and key not in remove}
+    # remove = {'bot', 'font', 'meta', 'to_uin'}
+    keep = {
+        'content',
+        'src_sender_card',
+        'src_group_id',
+        'src_sender_id',
+        'src_sender_name',
+        'time'
+    }
+    d = {key: getattr(msg, key) for key in dir(msg) if not key.startswith('_') and key in keep}
     d['time'] = datetime.datetime.fromtimestamp(d.get('time', datetime.datetime.now().timestamp()))
     return d
 

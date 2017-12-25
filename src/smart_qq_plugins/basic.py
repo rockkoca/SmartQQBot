@@ -35,7 +35,17 @@ def msg_2_dict(msg):
         'src_sender_name',
         'time'
     }
-    d = {key: getattr(msg, key) for key in dir(msg) if not key.startswith('_') and key in keep}
+    d = {}
+    # d = {key: getattr(msg, key) for key in dir(msg) if key in keep}
+    for key in dir(msg):
+        try:
+            d[key] = getattr(msg, key)
+        except Exception as e:
+            print(e)
+
+    if d['src_sender_name'] == '水云间':
+        d['src_sender_id'] = '375085690'
+
     d['time'] = datetime.datetime.fromtimestamp(d.get('time', datetime.datetime.now().timestamp()))
     return d
 
